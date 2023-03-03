@@ -23,5 +23,16 @@ func main() {
 	r.POST("/projects", controllers.CreateProject)
 	r.PUT("/projects/:id", controllers.UpdateProject)
 	r.PATCH("/projects/:id", controllers.PatchProject)
+	//user projects
+	r.GET("/userprojects/:id", controllers.ReadUserProject)
+	r.GET("/userprojects", controllers.ReadUserProjects)
+	r.POST("/userprojects", controllers.CreateUserProject)
+	r.PUT("/userprojects/:id", controllers.UpdateUserProject)
+	r.PATCH("/userprojects/:id", controllers.PatchUserProject)
+	//hastags
+	r.GET("/hashtags/:id", controllers.ReadHashtag)
+	r.GET("/hashtags", controllers.ReadHashtags)
+	r.POST("/hashtags", controllers.CreateHashtag)
+	r.PUT("/hashtags/:id", controllers.UpdateHashtag)
 	r.Run(":5000")
 }
