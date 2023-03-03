@@ -5,11 +5,12 @@ import (
 	"net/http"
 
 	"example.com/go-psql-es/database"
+	"example.com/go-psql-es/models"
 	"github.com/gin-gonic/gin"
 )
 
 func CreateUser(c *gin.Context) {
-	var user *database.User
+	var user *models.User
 	err := c.ShouldBind(&user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -20,7 +21,7 @@ func CreateUser(c *gin.Context) {
 	res := database.DB.Create(user)
 	if res.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "error creating a book",
+			"error": "error creating a user",
 		})
 		return
 	}
@@ -31,7 +32,7 @@ func CreateUser(c *gin.Context) {
 }
 
 func ReadUser(c *gin.Context) {
-	var user database.User
+	var user models.User
 	id := c.Param("id")
 	res := database.DB.Find(&user, id)
 	if res.RowsAffected == 0 {
@@ -47,7 +48,7 @@ func ReadUser(c *gin.Context) {
 }
 
 func ReadUsers(c *gin.Context) {
-	var users []database.User
+	var users []models.User
 	res := database.DB.Find(&users)
 	if res.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
@@ -62,7 +63,7 @@ func ReadUsers(c *gin.Context) {
 }
 
 func UpdateUser(c *gin.Context) {
-	var user database.User
+	var user models.User
 	id := c.Param("id")
 	err := c.ShouldBind(&user)
 
@@ -73,7 +74,7 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	var updateUser database.User
+	var updateUser models.User
 	res := database.DB.Model(&updateUser).Where("id = ?", id).Updates(user)
 
 	if res.RowsAffected == 0 {

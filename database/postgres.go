@@ -4,17 +4,13 @@ import (
 	"fmt"
 	"log"
 
+	"example.com/go-psql-es/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 var err error
-
-type User struct {
-	gorm.Model
-	Name string `json:"name"`
-}
 
 func DatabaseConnection() {
 	host := "localhost"
@@ -31,7 +27,7 @@ func DatabaseConnection() {
 	)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	DB.AutoMigrate(User{})
+	DB.AutoMigrate(&models.User{})
 	if err != nil {
 		log.Fatal("Error connecting to the database...", err)
 	}
