@@ -18,5 +18,10 @@ func main() {
 	r.POST("/users", controllers.CreateUser)
 	r.PUT("/users/:id", controllers.UpdateUser)
 	//r.DELETE("/users/:id", controllers.DeleteBook)
+	r.GET("/projects/:id", controllers.ReadProject)
+	r.GET("/projects", controllers.ReadProjects)
+	r.POST("/projects", controllers.CreateProject)
+	r.PUT("/projects/:id", controllers.UpdateProject)
+	r.PATCH("/projects/:id", controllers.PatchProject)
 	r.Run(":5000")
 }
