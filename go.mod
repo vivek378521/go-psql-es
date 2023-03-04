@@ -2,11 +2,15 @@ module example.com/go-psql-es
 
 go 1.19
 
-require gorm.io/driver/postgres v1.4.8
+require (
+	github.com/elastic/go-elasticsearch/v8 v8.6.0
+	gorm.io/driver/postgres v1.4.8
+)
 
 require (
 	github.com/bytedance/sonic v1.8.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.1.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect

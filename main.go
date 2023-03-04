@@ -5,13 +5,16 @@ import (
 
 	"example.com/go-psql-es/controllers"
 	"example.com/go-psql-es/database"
+
+	//"example.com/go-psql-es/scripts"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	fmt.Println("Starting application ...")
 	database.DatabaseConnection()
-
+	database.ElasticSearchConnection()
+	//scripts.IngestBulkData()
 	r := gin.Default()
 	r.GET("/users/:id", controllers.ReadUser)
 	r.GET("/users", controllers.ReadUsers)
@@ -34,5 +37,8 @@ func main() {
 	r.GET("/hashtags", controllers.ReadHashtags)
 	r.POST("/hashtags", controllers.CreateHashtag)
 	r.PUT("/hashtags/:id", controllers.UpdateHashtag)
+	//search
+	r.GET("/search", controllers.SearchByUsername)
 	r.Run(":5000")
+
 }
