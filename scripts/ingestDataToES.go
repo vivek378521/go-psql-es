@@ -61,7 +61,7 @@ func IngestBulkData() {
 		}
 
 		// Add the index operation to the bulk request object
-		meta := []byte(fmt.Sprintf(`{ "index" : { "_index" : "myindex", "_id" : "%s" } }%s`, doc.ID, "\n"))
+		meta := []byte(fmt.Sprintf(`{ "index" : { "_index" : "projects", "_id" : "%s" } }%s`, doc.ID, "\n"))
 		buf.Grow(len(meta) + len(docJSON))
 		buf.Write(meta)
 		buf.Write(docJSON)
