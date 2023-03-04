@@ -13,12 +13,12 @@ import (
 )
 
 type ElasticsearchData struct {
-	ID          string
-	UserName    string
-	ProjectName string
-	Hashtags    []string
-	Description string
-	Slug        string
+	ID          string   `json:"id"`
+	Username    string   `json:"username"`
+	ProjectName string   `json:"projectname"`
+	Description string   `json:"description"`
+	Slug        string   `json:"slug"`
+	Hashtags    []string `json:"hashtags"`
 }
 
 func IngestToElastic(userProjectId int) {
@@ -28,16 +28,9 @@ func IngestToElastic(userProjectId int) {
 	var user models.User
 	var hashtagprojects1 []models.HashtagProject
 	database.DB.Find(&userproject, userProjectId)
-	fmt.Println("*************")
-	fmt.Println(userproject)
 	database.DB.Find(&project, userproject.ProjectId)
 	database.DB.Find(&user, userproject.UserId)
-	fmt.Println(user)
-	fmt.Println(project)
 	database.DB.Where("project_id = ?", project.ID).Find(&hashtagprojects1)
-	fmt.Println(hashtagprojects1)
-	fmt.Println(len(hashtagprojects1))
-
 	var hashtagNames []string
 	for _, hp := range hashtagprojects1 {
 		var hashtag models.Hashtag
@@ -51,13 +44,13 @@ func IngestToElastic(userProjectId int) {
 	// Create an Elasticsearch data object
 	esData := ElasticsearchData{
 		ID:          fmt.Sprintf("%d", userproject.ID),
-		UserName:    user.Name,
+		Username:    user.Name,
 		ProjectName: project.Name,
 		Hashtags:    hashtagNames,
 		Description: project.Description,
 		Slug:        project.Slug,
 	}
-
+	fmt.Println(esData)
 	// Convert the data object to JSON
 	jsonData, err := json.Marshal(esData)
 	if err != nil {

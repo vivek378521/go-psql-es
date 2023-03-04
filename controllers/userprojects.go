@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"net/http"
+	"strconv"
 
 	"example.com/go-psql-es/database"
 	"example.com/go-psql-es/models"
@@ -47,6 +48,7 @@ func CreateUserProject(c *gin.Context) {
 		})
 		return
 	}
+	pipeline.IngestToElastic(int(userproject.ID))
 
 	c.JSON(http.StatusOK, gin.H{
 		"userproject": userproject,
@@ -166,5 +168,9 @@ func PatchUserProject(c *gin.Context) {
 }
 
 func Ingest(c *gin.Context) {
-	pipeline.IngestToElastic(1)
+	num, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		panic(err)
+	}
+	pipeline.IngestToElastic(num)
 }

@@ -93,7 +93,6 @@ func buildQuery(username string, hashtags []string) []byte {
 	if err := json.NewEncoder(&buf).Encode(query); err != nil {
 		log.Fatalf("Error encoding query: %s", err)
 	}
-
 	return buf.Bytes()
 }
 
@@ -105,7 +104,7 @@ func SearchByUsername(c *gin.Context) {
 	if searchText != "" {
 		query = buildFuzzyQuery(searchText)
 	}
-	if userName != "" || hashtags[0] != "" {
+	if userName != "" || (len(hashtags) > 0 && hashtags[0] != "") {
 		query = buildQuery(userName, hashtags)
 	}
 
