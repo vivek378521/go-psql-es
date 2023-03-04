@@ -32,11 +32,14 @@ func main() {
 	r.POST("/userprojects", controllers.CreateUserProject)
 	r.PUT("/userprojects/:id", controllers.UpdateUserProject)
 	r.PATCH("/userprojects/:id", controllers.PatchUserProject)
+	r.GET("/userprojects/ingest", controllers.Ingest)
 	//hastags
 	r.GET("/hashtags/:id", controllers.ReadHashtag)
 	r.GET("/hashtags", controllers.ReadHashtags)
 	r.POST("/hashtags", controllers.CreateHashtag)
 	r.PUT("/hashtags/:id", controllers.UpdateHashtag)
+	//hashtag project
+	r.POST("/hashtagprojects", controllers.CreateProjectHashtags)
 	//search
 	r.GET("/search", controllers.SearchByUsername)
 	r.Run(":5000")

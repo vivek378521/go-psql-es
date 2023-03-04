@@ -6,6 +6,7 @@ import (
 
 	"example.com/go-psql-es/database"
 	"example.com/go-psql-es/models"
+	"example.com/go-psql-es/pipeline"
 	"github.com/gin-gonic/gin"
 )
 
@@ -162,4 +163,8 @@ func PatchUserProject(c *gin.Context) {
 	database.DB.Model(&userproject).Updates(updateuserproject)
 
 	c.JSON(http.StatusOK, gin.H{"userproject": userproject, "user": userFound, "project": projectFound})
+}
+
+func Ingest(c *gin.Context) {
+	pipeline.IngestToElastic(1)
 }

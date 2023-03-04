@@ -31,6 +31,7 @@ func DatabaseConnection() {
 	DB.AutoMigrate(&models.Project{})
 	DB.AutoMigrate(&models.UserProject{})
 	DB.AutoMigrate(&models.Hashtag{})
+	DB.AutoMigrate(&models.HashtagProject{})
 	if err != nil {
 		log.Fatal("Error connecting to the database...", err)
 	}
