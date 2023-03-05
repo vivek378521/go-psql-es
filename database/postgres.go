@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"example.com/go-psql-es/models"
 	"gorm.io/driver/postgres"
@@ -13,11 +14,11 @@ var DB *gorm.DB
 var err error
 
 func DatabaseConnection() {
-	host := "localhost"
-	port := "5432"
-	dbName := "fold"
-	dbUser := "fold"
-	password := "fold"
+	host := os.Getenv("POSTGRES_HOST")
+	port := os.Getenv("POSTGRES_PORT")
+	dbName := os.Getenv("POSTGRES_DB_NAME")
+	dbUser := os.Getenv("POSTGRES_USERNAME")
+	password := os.Getenv("POSTGRES_PWD")
 	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
 		host,
 		port,

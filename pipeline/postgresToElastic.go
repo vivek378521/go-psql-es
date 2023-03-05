@@ -30,11 +30,11 @@ func IngestToElastic(userProjectId int) {
 	database.DB.Find(&userproject, userProjectId)
 	database.DB.Find(&project, userproject.ProjectId)
 	database.DB.Find(&user, userproject.UserId)
-	database.DB.Where("project_id = ?", project.ID).Find(&hashtagprojects1)
+	database.DB.Where("project_id = ?", userproject.ProjectId).Find(&hashtagprojects1)
 	var hashtagNames []string
 	for _, hp := range hashtagprojects1 {
 		var hashtag models.Hashtag
-		database.DB.Find(&hashtag, hp.ID)
+		database.DB.Find(&hashtag, hp.HashtagId)
 		hashtagNames = append(hashtagNames, hashtag.Name)
 	}
 

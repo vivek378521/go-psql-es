@@ -8,10 +8,15 @@ import (
 
 	//"example.com/go-psql-es/scripts"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	fmt.Println("Starting application ...")
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
 	database.DatabaseConnection()
 	database.ElasticSearchConnection()
 	//scripts.IngestBulkData()
